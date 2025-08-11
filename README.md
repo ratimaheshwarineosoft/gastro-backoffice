@@ -14,13 +14,6 @@
 [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)]()
 [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)]()
 
-## [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/arslanameer)
-
-- ⬇️ Older Versions
-  - [Angular 19 Branch](https://github.com/ArslanAmeer/angular-boilerplate/tree/angular-v19)
-  - [Angular 18 Branch](https://github.com/ArslanAmeer/angular-boilerplate/tree/angular-v18)
-  - [Angular 16 Branch](https://github.com/ArslanAmeer/angular-boilerplate/tree/angular-v16)
-
 Get started fast with this **Angular 20** boilerplate, crafted for **enterprise-level scalability**. It integrates critical features like **authentication**, **lazy loading**, **real-time socket communication**, **service workers**, **shell layout (header+sidebar)** making it ready to handle everything from SaaS platforms to enterprise dashboards. Built on the latest **Angular 20**, this template is packed with the newest capabilities and ensures that you adhere to **modern development best practices**.
 
 With a solid foundation of **PWA (Progressive Web App)**, **authentication**, **role-based permissions**, **HTTP interceptors**, **socket integration**, and more, this boilerplate takes care of the core setup so you can focus on building features.
@@ -77,18 +70,6 @@ This Angular 20 boilerplate goes beyond just being a starting template—it's a 
 By enforcing **best coding practices** and strict **ESLint rules**, the boilerplate guarantees that every contributor to your project adheres to **high development standards**. Plus, the **modular, scalable architecture** and **cutting-edge Angular features** ensure that this project grows with you.
 
 Whether you’re developing a SaaS platform, building a dynamic web app, or designing an enterprise-level solution, this boilerplate gives you the tools you need—fast.
-
-### Continuous Updates
-
-This project will be regularly updated with the latest **Angular** releases, ensuring compatibility with the latest features and security updates. Stay tuned for new enhancements and features as they are added based on evolving development needs.
-
-### Demo:
-
-Check out working demo [here](https://angular-boilerplate.arslanameer.com)
-
-> ## **Note:** <small style="color: red"> You can remove this with all the above lines and use rest in your documentation.</small>
-
----
 
 # Web Front-End
 
@@ -163,6 +144,5 @@ _You can see all change logs [Here](/CHANGELOG.md)._
 
 Author:
 
-[Arslan Ameer](www.arslanameer.com) | [GitHub](https://github.com/ArslanAmeer)
-
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/arslanameer)
+Rati Maheshwari [GitHub](https://github.com/ratimaheshwarineosoft)
+Shantanu Maske [GitHub](https://github.com/ShantanuMaske)
