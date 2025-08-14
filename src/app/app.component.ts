@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet, Event } from '@angular/router';
 import { I18nService, LanguageSelectorComponent } from '@app/i18n';
 import { Title } from '@angular/platform-browser';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -8,6 +8,7 @@ import { filter, merge } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AppUpdateService, Logger } from '@core/services';
 import { SocketIoService } from '@core/socket-io';
+import { isPlatformBrowser } from '@angular/common';
 
 @UntilDestroy()
 @Component({
@@ -26,12 +27,24 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly _i18nService: I18nService,
     private readonly _socketService: SocketIoService,
     private readonly _updateService: AppUpdateService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) {}
 
   ngOnInit() {
     // Setup logger
     if (environment.production) {
       Logger.enableProductionMode();
+    }
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationEnd) {
+          setTimeout(() => {
+            (window as any).HSStaticMethods?.autoInit();
+          }, 100);
+        }
+      });
     }
 
     // Initialize i18nService with default language and supported languages

@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Preline variants */
+@import 'preline/variants.css';
+
+/* Let Tailwind scan Preline's JS for class names */
+@source "../node_modules/preline/dist/*.js";
+
+/* Enable Tailwind Forms */
+@plugin "@tailwindcss/forms";
