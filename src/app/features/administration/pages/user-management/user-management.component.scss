@@ -1,1 +1,22 @@
-/* Styles for user-management */
+button[data-hs-tab].active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px; /* border thickness   */
+  width: 0; /* start from 0       */
+  background-color: rgb(37, 99, 235); /* matches border     */
+}
+
+@keyframes grow-border {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-grow-border {
+  animation: grow-border 0.3s ease-out forwards;
+}

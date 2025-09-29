@@ -9,6 +9,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AppUpdateService, Logger } from '@core/services';
 import { SocketIoService } from '@core/socket-io';
 import { isPlatformBrowser } from '@angular/common';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @UntilDestroy()
 @Component({
@@ -18,7 +19,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'angular-boilerplate';
+  title = 'GastroDigital';
 
   constructor(
     private readonly _router: Router,

@@ -1,0 +1,130 @@
+<div class="fixed top-15 right-5 z-50 space-y-2">
+  <div *ngIf="error" class="inline-flex items-center p-4 rounded-md shadow-md bg-red-600 text-white max-w-xs">
+    <span class="mr-2">{{ error }}</span>
+    <button type="button" class="ml-auto font-bold" (click)="error = ''">&times;</button>
+  </div>
+</div>
+<div class="min-h-screen bg-gray-100 py-5 px-4 md:px-10 font-sans">
+  <div class="max-w-10xl mx-auto bg-white shadow-xl rounded-2xl px-6 md:p-6">
+    <h2 class="text-3xl md:text-3xl font-extrabold text-gray-800 mb-5 tracking-tight">Add Recurrence Hours</h2>
+    <div class="border-b border-gray-200 my-2"></div>
+
+    <form [formGroup]="specialHoursForm" (ngSubmit)="save()" class="space-y-8">
+      <!-- FormArray Entries -->
+      <div formArrayName="entries" class="space-y-4">
+        <div *ngFor="let entry of entries.controls; let i = index" [formGroupName]="i" class="border border-gray-200 rounded-xl p-4 md:p-5 shadow-sm hover:shadow-md transition bg-white">
+          <!-- Header -->
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-base font-semibold text-gray-700"></h2>
+            @if (entries?.controls?.length > 1) {
+              <button type="button" class="px-3 py-1 text-xs bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition" (click)="removeEntry(i)">❌ Remove</button>
+            }
+          </div>
+
+          <!-- Date & Reason -->
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-4">
+            <input
+              formControlName="fromDate"
+              maxlength="5"
+              placeholder="From Date (DD/MM)"
+              (input)="onDateBlur($event, 'fromDate')"
+              class="border border-gray-200 p-2 rounded-md focus:ring-2 focus:ring-blue-400 w-60 text-sm"
+            />
+            <input
+              formControlName="fromYear"
+              placeholder="From Year (YYYY)"
+              [min]="currentYear"
+              maxlength="4"
+              (change)="onYearChange(i, 'fromYear')"
+              class="border border-gray-200 p-2 rounded-md focus:ring-2 focus:ring-blue-400 w-60 text-sm"
+            />
+
+            <input
+              formControlName="toDate"
+              maxlength="5"
+              placeholder="To Date (DD/MM)"
+              (input)="onDateBlur($event, 'toDate')"
+              class="border border-gray-200 p-2 rounded-md focus:ring-2 focus:ring-blue-400 w-60 text-sm"
+            />
+            <input
+              formControlName="toYear"
+              placeholder="To Year (YYYY)"
+              [min]="currentYear"
+              maxlength="4"
+              (change)="onYearChange(i, 'toYear')"
+              class="border border-gray-200 p-2 rounded-md focus:ring-2 focus:ring-blue-400 w-60 text-sm"
+            />
+
+            <input formControlName="reasonText" placeholder="Reason" class="border border-gray-200 p-2 rounded-md focus:ring-2 focus:ring-blue-400 w-full text-sm" />
+          </div>
+
+          <!-- Days of Week -->
+          <div class="mb-4">
+            <label class="font-medium mb-2 block text-gray-700 text-sm">Days of Week</label>
+            <div class="flex flex-wrap gap-2">
+              <ng-container *ngFor="let day of daysOfWeekOptions">
+                <button
+                  type="button"
+                  class="px-3 py-1 rounded-full text-xs font-medium border transition"
+                  [ngClass]="{
+                    'bg-blue-600 text-white border-blue-600': isDaySelected(i, day.value),
+                    'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100': !isDaySelected(i, day.value),
+                  }"
+                  (click)="onDayToggle(i, day.value, !isDaySelected(i, day.value))"
+                  *ngIf="!isDayDisabledForEntry(i, day.value)"
+                >
+                  {{ day.label }}
+                </button>
+              </ng-container>
+            </div>
+          </div>
+
+          <!-- Closed -->
+          <div class="flex items-center mb-4">
+            <input type="checkbox" formControlName="isClosed" id="closed-{{ i }}" (change)="onClosedToggle(i)" class="mr-2 w-4 h-4 accent-red-600" />
+            <label for="closed-{{ i }}" class="text-gray-700 text-sm">Closed</label>
+          </div>
+
+          <!-- Time Ranges -->
+          <div formArrayName="timeRanges" class="mb-4">
+            <label class="font-medium mb-2 block text-gray-700 text-sm">⏰ Time Ranges</label>
+            <div *ngFor="let range of entry.get('timeRanges').controls; let j = index" [formGroupName]="j" class="flex flex-col md:flex-row gap-2 mb-2 items-center">
+              <input
+                formControlName="fromTime"
+                type="time"
+                class="border border-gray-200 p-2 rounded-md w-60 md:w-60 focus:ring-2 focus:ring-blue-400 text-sm"
+                [readonly]="entry.get('isClosed')?.value"
+              />
+              <input
+                formControlName="toTime"
+                type="time"
+                class="border border-gray-200 p-2 rounded-md w-60 md:w-60 focus:ring-2 focus:ring-blue-400 text-sm"
+                [readonly]="entry.get('isClosed')?.value"
+              />
+              <button
+                type="button"
+                *ngIf="entry.get('timeRanges').controls?.length > 1"
+                class="px-2 py-1 text-xs bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition"
+                (click)="removeTimeRange(i, j)"
+                [disabled]="entry.get('isClosed')?.value"
+              >
+                Remove
+              </button>
+            </div>
+            <button type="button" class="px-3 py-1 bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100 transition text-sm" (click)="addTimeRange(i)" [disabled]="entry.get('isClosed')?.value">
+              + Add Time Range
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Buttons -->
+      <div class="flex flex-col md:flex-row justify-between items-center mt-8 gap-4">
+        <div class="flex gap-4 flex-wrap">
+          <button type="button" class="px-5 py-2 bg-green-500 text-white rounded-md shadow hover:bg-green-600 transition text-sm" (click)="addEntry()">+ Add Entry</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 transition text-sm">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

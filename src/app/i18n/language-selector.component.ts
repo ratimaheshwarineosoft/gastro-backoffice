@@ -6,7 +6,7 @@ import { NgClass } from '@angular/common';
   selector: 'app-language-selector',
   templateUrl: './language-selector.component.html',
   styleUrls: ['./language-selector.component.scss'],
-  imports: [NgClass],
+  imports: [],
 })
 export class LanguageSelectorComponent {
   @Input() inNavbar = true;

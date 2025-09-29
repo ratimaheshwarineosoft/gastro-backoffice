@@ -1,20 +1,116 @@
-<div class="login">
-  <div class="login-box">
-    <h2 translate>Login</h2>
-    <form>
-      <div class="input-field">
-        <input required type="text" />
-        <label translate>Username</label>
-      </div>
-      <div class="input-field">
-        <input required type="password" />
-        <label translate>Password</label>
-      </div>
-      <button (click)="login()" type="submit">{{ 'Login' | translate }}</button>
-    </form>
+<div class="bg-gray-100 dark:bg-gray-900 px-4">
+  <div class="fixed top-5 right-5 z-50">
+    <app-language-selector [openAbove]="false"></app-language-selector>
   </div>
-</div>
+  <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+    <div class="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-8 space-y-1">
+      <!-- Logo -->
+      <div class="mt-5 mb-8">
+        <a href="index.html">
+          <img alt="Logo" class="h-10 block mx-auto" src="images/logo.png" />
+        </a>
+      </div>
 
-<div class="lang-selector">
-  <app-language-selector [openAbove]="true"></app-language-selector>
+      <!-- Header -->
+      <div class="auth-header text-center">
+        <h4 class="text-2xl text-gray-800 dark:text-gray-100">
+          {{ 'Login.Title' | translate }}
+        </h4>
+      </div>
+
+      <!-- Error Alert -->
+      <div class="hidden border border-red-200 bg-red-50 text-red-600 dark:border-red-800 dark:bg-red-900/40 dark:text-red-300 text-sm rounded-lg p-3" [hidden]="!error || isLoading" translate>
+        {{ error }}
+      </div>
+
+      <!-- Login Form -->
+      <form (ngSubmit)="login()" [formGroup]="loginForm" class="space-y-5" novalidate>
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {{ 'Common.eMail' | translate }}
+          </label>
+          <div class="relative mt-1">
+            <input
+              formControlName="email"
+              type="text"
+              autocomplete="email"
+              placeholder="{{ 'Common.eMail' | translate }}"
+              class="py-2 pl-5 pr-10 block w-full border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            />
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="os-icon os-icon-user-male-circle text-gray-400 dark:text-gray-500"></i>
+            </div>
+          </div>
+          <small [hidden]="loginForm.controls['email'].valid || loginForm.controls['email'].untouched" class="text-red-600 dark:text-red-400 text-xs mt-1 block" translate>
+            {{ 'Login.EmailError' | translate }}
+          </small>
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {{ 'Common.Password' | translate }}
+          </label>
+          <div class="relative mt-1">
+            <input
+              formControlName="password"
+              [type]="showPassword ? 'text' : 'password'"
+              autocomplete="current-password"
+              placeholder="{{ 'Common.Password' | translate }}"
+              class="py-2 pl-5 pr-10 block w-full border-gray-300 dark:border-gray-700 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            />
+            <!-- Toggle button -->
+            <button
+              type="button"
+              (click)="togglePassword()"
+              class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              aria-label="Toggle password visibility"
+            >
+              <i [class]="'fas fa-' + (showPassword ? 'eye-slash' : 'eye')"></i>
+            </button>
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i class="os-icon os-icon-fingerprint text-gray-400 dark:text-gray-500"></i>
+            </div>
+          </div>
+          <small [hidden]="loginForm.controls['password'].valid || loginForm.controls['password'].untouched" class="text-red-600 dark:text-red-400 text-xs mt-1 block" translate>
+            {{ 'Login.PasswordError' | translate }}
+          </small>
+        </div>
+
+        <!-- Remember Me -->
+        <div class="flex items-center">
+          <input id="remember" type="checkbox" formControlName="remember" class="h-4 w-4 text-primary-600 border-gray-300 dark:border-gray-700 rounded focus:ring-primary-500" />
+          <label for="remember" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+            {{ 'Login.Remain' | translate }}
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid || isLoading"
+            class="w-full text-white inline-flex justify-center py-2 px-4 mb-3 border border-transparent rounded-lg shadow-sm text-sm font-medium bg-[#009688] hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-95 disabled:cursor-not-allowed"
+          >
+            {{ 'Login.login' | translate }}
+          </button>
+        </div>
+
+        <!-- Extra Links -->
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center mt-4">
+          {{ 'Login.Fotgot' | translate }}
+          <a routerLink="/login/forgot-password" class="text-[#009688] hover:underline no-underline bg-transparent">
+            {{ 'Login.Fotgot2' | translate }}
+          </a>
+        </p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center mb-5">
+          {{ 'Login.NotMem' | translate }}
+          <a routerLink="/register" class="text-[#009688] hover:underline no-underline bg-transparente">
+            {{ 'Login.Rgister' | translate }}
+          </a>
+        </p>
+      </form>
+    </div>
+  </div>
 </div>

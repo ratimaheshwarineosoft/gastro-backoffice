@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'login',
     canActivate: [AlreadyLoggedCheckGuard],
     component: LoginComponent,
-    data: { title: marker('Login') },
+    data: { title: marker('Login.login') },
   },
   {
     path: 'logout',

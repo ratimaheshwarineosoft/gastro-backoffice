@@ -1,5 +1,4 @@
-
-@import "preline/variants.css";
+@import 'preline/variants.css';
 
 @tailwind base;
 @tailwind components;

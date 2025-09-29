@@ -1,0 +1,141 @@
+<h2 class="element-header px-5 text-3xl font-bold my-6 text-gray-800">Öffnungszeiten - Administration</h2>
+
+<div class="border-b border-gray-200 bg-gray-200 dark:border-neutral-700 mx-5 mt-5 p-2 rounded-t-md">
+  <nav class="flex gap-x-4" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+    <!-- Tab 1 -->
+    <button
+      type="button"
+      class="hs-tab-active:font-semi-bold hs-tab-active:text-[#009688] py-1 px-6 text-lg rounded-t-md border-transparent text-gray-700 hover:text-[#009688] focus:outline-none active"
+      id="tabs-with-underline-item-1"
+      aria-selected="true"
+      data-hs-tab="#tabs-with-underline-1"
+      aria-controls="tabs-with-underline-1"
+      role="tab"
+    >
+      Opening Hours
+    </button>
+
+    <!-- Tab 2 -->
+    <button
+      type="button"
+      class="hs-tab-active:font-semi-bold hs-tab-active:text-[#009688] py-1 px-6 text-lg rounded-t-md border-transparent text-gray-700 hover:text-[#009688] focus:outline-none"
+      id="tabs-with-underline-item-2"
+      aria-selected="false"
+      data-hs-tab="#tabs-with-underline-2"
+      aria-controls="tabs-with-underline-2"
+      role="tab"
+    >
+      Special Opening Hours
+    </button>
+  </nav>
+</div>
+
+<div class="mt-2">
+  <div id="tabs-with-underline-1" role="tabpanel" aria-labelledby="tabs-with-underline-item-1">
+    <div class="px-6 space-y-5 bg-gray-50 min-h-screen">
+      <div *ngIf="isLoading" class="text-gray-500 text-lg font-medium">Loading...</div>
+      <div class="p-6 mb-2 flex justify-between">
+        <form class="flex items-center space-x-4">
+          <!-- Date Range Picker -->
+          <div class="flex-1 max-w-md">
+            <label class="block mb-1 text-gray-700">Date Range</label>
+            <input type="text" class="w-full px-3 py-2 border rounded" ngxDaterangepickerMd [showClearButton]="true" placeholder="Select date range" [formControl]="dateRangeForm.get('dateRange')" />
+          </div>
+
+          <!-- Quick Select Buttons -->
+          <div class="flex space-x-2 mt-7">
+            <button
+              type="button"
+              class="px-3 py-2 rounded-lg text-sm font-medium"
+              [ngClass]="selectedPreset === '7' ? 'bg-[#009688] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+              (click)="setPreset(7)"
+            >
+              Next 7 Days
+            </button>
+
+            <button
+              type="button"
+              class="px-3 py-2 rounded-lg text-sm font-medium"
+              [ngClass]="selectedPreset === '15' ? 'bg-[#009688] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+              (click)="setPreset(15)"
+            >
+              Next 15 Days
+            </button>
+
+            <button
+              type="button"
+              class="px-3 py-2 rounded-lg text-sm font-medium"
+              [ngClass]="selectedPreset === '30' ? 'bg-[#009688] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+              (click)="setPreset(30)"
+            >
+              Next 30 Days
+            </button>
+          </div>
+        </form>
+        <!-- Add New Time Button -->
+        <button class="px-4 py-2 bg-[#009688] text-white rounded h-fit mt-7" (click)="redirectOnForm()">Add New Time</button>
+      </div>
+      <div class="border-b border-gray-200 my-4"></div>
+      <br />
+      <div *ngFor="let day of openingHours" class="relative group">
+        <!-- Date badge outside card -->
+        <div class="font-semibold absolute -top-4 text-[#009688] px-4 text-lg">{{ day.date }} ({{ day.day }})</div>
+
+        <!-- Card for the day -->
+        <div class="p-5 space-y-2">
+          <!-- Closed message -->
+          <!-- Time slots -->
+          <div *ngIf="day.openingHours.length === 0" class="border-l-4 border-red text-red-500 font-semibold text-center py-4 bg-red-50">Closed</div>
+          <div *ngFor="let period of day.openingHours; let last = last" class="space-y-2 relative">
+            <div *ngIf="period.fromTime === '00:00:00' && period.toTime === '00:00:00'" class="border-l-4 border-red text-red-500 font-semibold text-center py-4 bg-red-50">Closed</div>
+
+            <div
+              *ngIf="!(period.fromTime === '00:00:00' && period.toTime === '00:00:00')"
+              class="border-l-4 border-[#009688] flex justify-between items-center p-2 shadow-sm bg-gradient-to-r from-gray-50 to-gray-100 hover:from-gray-200 hover:shadow-md transition"
+            >
+              <!-- Time and Reason -->
+              <div class="flex flex-col">
+                <span class="text-gray-800 font-medium">{{ period.fromTime }} - {{ period.toTime }}</span>
+                <span *ngIf="period.isSpecial" class="text-gray-500 text-sm">{{ period.reasonText }}</span>
+              </div>
+
+              <!-- Action buttons -->
+              <div class="flex items-center space-x-3">
+                <!-- Edit button -->
+                <button
+                  (click)="editResTime(period.details)"
+                  class="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-100 hover:bg-blue-200 text-blue-600 text-lg transition-shadow shadow-md hover:shadow-lg"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+
+                <!-- Delete button only if isSpecial -->
+                <button
+                  *ngIf="period.isSpecial"
+                  (click)="deleteResTime(period.details.id)"
+                  class="flex items-center justify-center w-10 h-10 rounded-lg bg-red-100 hover:bg-red-200 text-red-600 text-lg transition-shadow shadow-md hover:shadow-lg"
+                >
+                  <i class="far fa-trash-alt"></i>
+                </button>
+
+                <!-- Close / Block button -->
+                <button
+                  (click)="blockResTime(period.details)"
+                  class="flex items-center justify-center w-10 h-10 rounded-lg bg-red-100 hover:bg-gray-200 text-gray-800 text-lg transition-shadow shadow-md hover:shadow-lg"
+                >
+                  <i class="fa fa-ban"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Soft divider -->
+            <div *ngIf="!last" class="border-b border-gray-200 my-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="tabs-with-underline-2" class="hidden" role="tabpanel" aria-labelledby="tabs-with-underline-item-2">
+    <p class="text-gray-500 dark:text-neutral-400">This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">second</em> item's tab body.</p>
+  </div>
+</div>

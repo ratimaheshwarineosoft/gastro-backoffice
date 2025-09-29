@@ -1,2 +1,90 @@
-<h1>Client Selection</h1>
-<p>Content for client-selection</p>
+<div class="fixed top-5 right-10 z-50">
+  <app-language-selector [openAbove]="true"></app-language-selector>
+</div>
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  @if (!isLoading) {
+    <div class="max-w-3xl w-full p-6 bg-white shadow-lg rounded-lg">
+      <!-- Logo & Language Selector -->
+      <div class="mb-10 text-center">
+        <a href="#">
+          <img alt="Logo" class="h-10 mx-auto" src="images/logo.png" />
+        </a>
+      </div>
+
+      <!-- Email Verified -->
+      @if (isEmailVerified) {
+        @if (!isUserBlocked) {
+          <div class="text-center">
+            <!-- Headline -->
+            <h5 class="text-xl font-semibold mb-4 mx-auto">
+              {{ 'SelectPage.ManageLocation' | translate }}
+            </h5>
+
+            <!-- Client List -->
+            <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 mb-4 max-w-xl mx-auto">
+              @for (client of clients; track client.id) {
+                <div (click)="openClientDashboard(client.id, client)" class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition">
+                  <!-- Logo -->
+                  <div class="w-12 h-12 flex-shrink-0 mr-3">
+                    @if (client.logo) {
+                      <img [src]="'https://cdn.gastroguide.de/' + client.logo" alt="Client Logo" class="w-full h-full object-cover rounded" />
+                    } @else {
+                      <img src="images/no-image.png" alt="No Logo" class="w-full h-full object-cover rounded-full" />
+                    }
+                  </div>
+
+                  <!-- Client info -->
+                  <div class="flex-1">
+                    <strong class="block text-gray-900 text-sm sm:text-base">
+                      {{ client.name }}
+                    </strong>
+                    <span class="block text-gray-500 text-xs sm:text-sm"> {{ client.street }}, {{ client.zipCode }} {{ client.location }} </span>
+                  </div>
+
+                  <!-- Role badge -->
+                  <div class="ml-3 text-xs font-medium text-[#009688]">
+                    {{ client.isModerator ? 'Moderator' : 'Administrator' }}
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Add New Client button -->
+            <div class="flex justify-center">
+              <button class="inline-flex justify-center py-2 px-4 mb-3 mt-2 bg-[#009688] text-white rounded hover:bg-[#00796b] transition" (click)="addNewClient()">
+                {{ 'SelectPage.AddNewCompany' | translate }}
+              </button>
+            </div>
+          </div>
+        } @else {
+          <!-- User Blocked -->
+          <h6 class="text-lg font-medium text-center text-red-600">
+            <div [innerHtml]="'SelectPage.newUserContactAdmin' | translate"></div>
+          </h6>
+        }
+      } @else {
+        <!-- Email Not Verified -->
+        @if (userEmail) {
+          <div class="space-y-4">
+            <h6 class="text-lg font-medium flex items-center gap-2">
+              {{ 'SelectPage.VerifyEmailMessage' | translate }}: {{ userEmail }}
+              @if (!lastAttempt) {
+                <button class="p-1 rounded hover:bg-gray-100 text-gray-700" (click)="editEmail()" matTooltip="Bearbeiten">
+                  <i class="fas fa-edit"></i>
+                </button>
+              }
+            </h6>
+
+            <div class="text-center space-y-2">
+              <button class="px-4 py-2 bg-gray-200 text-gray-900 rounded hover:bg-gray-300 disabled:opacity-50" [disabled]="isButtonDisabled" (click)="resendVerificationEMail()">Resend Email</button>
+
+              @if (isButtonDisabled) {
+                <div class="text-red-600 text-sm">Try again in {{ remainingSeconds }} second{{ remainingSeconds > 1 ? 's' : '' }}...</div>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

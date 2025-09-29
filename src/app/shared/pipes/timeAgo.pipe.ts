@@ -39,7 +39,7 @@ export class TimeAgoPipe implements PipeTransform {
     } else if (diffInDays < 30) {
       return this._translateService.instant('weeks ago', { weeks: Math.floor(diffInDays / 7) });
     } else {
-      return formatDate(date, 'dd/MM/yyyy', 'en-US');
+      return formatDate(date, 'dd/MM/yyyy', 'en-EN');
     }
   }
 }

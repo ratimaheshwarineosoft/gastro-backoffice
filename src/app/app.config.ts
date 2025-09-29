@@ -11,6 +11,9 @@ import { RouteReusableStrategy } from '@core/helpers';
 import { provideServiceWorker } from '@angular/service-worker';
 import { SocketIoModule } from '@core/socket-io';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { LoadingInterceptor } from './@core/interceptors/loading.interceptor';
 
 if (environment.production) {
   enableProdMode();
@@ -75,9 +78,12 @@ export const appConfig: ApplicationConfig = {
       useClass: ErrorHandlerInterceptor,
       multi: true,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     {
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy,
     },
+    importProvidersFrom(NgxPermissionsModule.forRoot()),
+    importProvidersFrom(NgxDaterangepickerMd.forRoot()),
   ],
 };

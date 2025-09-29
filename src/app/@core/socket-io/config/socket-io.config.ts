@@ -107,7 +107,7 @@ export interface SocketIoConfig {
      */
     requestTimeout?: number;
     /**
-     * A list of subprotocols. See https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers#Subprotocols
+     * A list of subprotocols. See https://developer.mozilla.org/en-EN/docs/Web/API/WebSockets_API/Writing_WebSocket_servers#Subprotocols
      */
     protocols?: any;
     /**

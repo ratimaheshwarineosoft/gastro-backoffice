@@ -110,7 +110,6 @@ And `_shared` folder within `pages` folder containing views.pages that are share
 
 - **Core**:
   As the backbone of the application, the `@core` folder contains essential components, services, and utilities for the app’s overall functionality.
-
   - **Constants**: Contains constant values that are used throughout the app, similar to app settings or configurations.
   - **Entities**: Holds entity models for data manipulation, representing core business objects used throughout the app.
   - **Enums**: Stores all enums to ensure type safety and centralized enum management.
@@ -125,7 +124,6 @@ And `_shared` folder within `pages` folder containing views.pages that are share
 
 - **Auth** (Independent module):
   A completely independent authentication module.
-
   - **Enums**: Manages enums specific to authentication.
   - **Guards**: Contains guards related to authentication, like the auth guard and permission guard.
   - **Login**: The login page that serves as the app’s default landing page.
@@ -137,26 +135,22 @@ And `_shared` folder within `pages` folder containing views.pages that are share
 
 - **i18n**:
   Manages internationalization, including:
-
   - **i18n Service**: Handles language selection and translation.
   - **Language Selector Component**: A reusable component to switch between languages in the app.
 
 - **Pages**:
   Manages all views/screens shown to the user.
-
   - **Pages Module**: The module approach used to group related screens into modules that are lazy-loaded. Each major section or feature can have its own module, and these modules are imported into the shell module.
   - **Pages Routing**: Main routing file for the app's screens. It handles lazy-loading of other modules, components, and views to improve performance.
 
 - **Shared**:
   This folder contains reusable components, directives, and pipes that can be used across the entire application.
-
   - **Components**: Shared components like buttons, forms, or other UI elements that can be used across multiple views.
   - **Directives**: Shared directives that can be used across multiple modules.
   - **Pipes**: Reusable pipes for formatting or transforming data within the app.
 
 - **Shell**:
   Manages the core layout components that are used throughout the app.
-
   - **Components**: Reusable components like the header, footer, sidebar, etc., which make up the app’s structure.
   - **Services**:
     - **Shell Service**: Manages data related to the layout, like the sidebar toggle state or handling child routes.
@@ -167,7 +161,6 @@ And `_shared` folder within `pages` folder containing views.pages that are share
 
 - **Theme**:
   This folder contains all SCSS files responsible for managing the application's theme and styles.
-
   - **\_base**: Handles basic style definitions and resets.
   - **\_layout**: Manages layout-specific styles such as grids, containers, and spacing.
   - **\_mixin**: Defines reusable SCSS mixins for consistent styling across the app.

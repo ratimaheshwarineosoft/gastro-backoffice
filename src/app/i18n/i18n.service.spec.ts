@@ -4,8 +4,8 @@ import { Subject } from 'rxjs';
 
 import { I18nService } from './i18n.service';
 
-const defaultLanguage = 'en-US';
-const supportedLanguages = ['eo', 'en-US', 'fr-FR'];
+const defaultLanguage = 'en-EN';
+const supportedLanguages = ['eo', 'en-EN', 'fr-FR'];
 
 class MockTranslateService {
   currentLang = '';
@@ -20,7 +20,7 @@ class MockTranslateService {
   }
 
   getBrowserCultureLang() {
-    return 'en-US';
+    return 'en-EN';
   }
 
   setTranslation(lang: string, translations: object, shouldMerge?: boolean) {}

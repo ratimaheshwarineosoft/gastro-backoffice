@@ -18,13 +18,17 @@ export class CredentialsService {
     }
   }
 
-  private _credentials: Credentials | null = null;
+  private _credentials: any | null = null;
 
   /**
    * Gets the user credentials.
    * @return The user credentials or null if the user is not authenticated.
    */
   get credentials(): Credentials | null {
+    return this._credentials;
+  }
+
+  getCredentials(): any | null {
     return this._credentials;
   }
 
@@ -36,6 +40,10 @@ export class CredentialsService {
     return !!this.credentials;
   }
 
+  isAdmin(): boolean {
+    return this._credentials.role === 'admin';
+  }
+
   /**
    * Sets the user credentials.
    * The credentials may be persisted across sessions by setting the `remember` parameter to true.
@@ -43,7 +51,7 @@ export class CredentialsService {
    * @param credentials The user credentials.
    * @param remember True to remember credentials across sessions.
    */
-  setCredentials(credentials?: Credentials, remember = true) {
+  setCredentials(credentials?: any, remember = true) {
     this._credentials = credentials || null;
 
     if (credentials) {

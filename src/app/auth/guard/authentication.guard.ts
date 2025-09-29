@@ -22,7 +22,7 @@ export class AlreadyLoggedCheckGuard {
   async canActivate(): Promise<boolean> {
     const isAuthenticated = this._credentialsService.isAuthenticated();
     if (isAuthenticated) {
-      this._router.navigateByUrl('/dashboard');
+      this._router.navigateByUrl('/select');
       return false;
     } else {
       return true;

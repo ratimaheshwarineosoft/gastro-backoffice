@@ -2,12 +2,116 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>NewAngularBoilerplate</title>
+    <title>GastroDigital</title>
     <base href="/" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="manifest" href="manifest.webmanifest" />
     <meta name="theme-color" content="#1976d2" />
+    <script>
+      function toggleIntercomChat() {
+        if (!window.location.href.includes('/select__') && !window.location.href.includes('/user/reservation/') && !window.location.href.includes('/reset-password/')) {
+          window.Intercom('update', {
+            hide_default_launcher: false,
+          });
+        } else {
+          window.Intercom('update', {
+            hide_default_launcher: true,
+          });
+        }
+      }
+
+      // LIVE = GTM-KJ4FM8W
+      // TEST = GTM-MFLN9Q3
+      var gtmID = window.location.href.includes('kunden.gastro.digital') || window.location.href.includes('kunden.gastrodigital.net') ? 'GTM-KJ4FM8W' : 'GTM-MFLN9Q3';
+
+      //Set your INTERCOM APP_ID
+      //live = u57ft9ay
+      //test = w6avyz9w
+      var APP_ID = window.location.href.includes('kunden.gastro.digital') || window.location.href.includes('kunden.gastrodigital.net') ? 'u57ft9ay' : 'w6avyz9w';
+
+      function initGTM(w, d, s, l, i) {
+        // GTM start
+        w[l] = w[l] || [];
+        w[l].push({
+          'gtm.start': new Date().getTime(),
+          event: 'gtm.js',
+        });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+        // GTM end
+
+        var w = window;
+        var ic = w.Intercom;
+        if (typeof ic === 'function') {
+          ic('reattach_activator');
+          ic('update', w.intercomSettings);
+        } else {
+          var d = document;
+          var i = function () {
+            i.c(arguments);
+          };
+          i.q = [];
+          i.c = function (args) {
+            i.q.push(args);
+          };
+          w.Intercom = i;
+          var l = function () {
+            var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://widget.intercom.io/widget/' + APP_ID;
+            var x = d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+          };
+          if (document.readyState === 'complete') {
+            l();
+          } else if (w.attachEvent) {
+            w.attachEvent('onload', l);
+          } else {
+            w.addEventListener('load', l, false);
+          }
+        }
+        toggleIntercomChat();
+      }
+      (function (w, d, s, l, i) {
+        if (
+          !window.location.href.includes('/select__') &&
+          !window.location.href.includes('/user/reservation/') &&
+          !window.location.href.includes('/reset-password/') &&
+          !window.location.href.includes('/voucher-api-check')
+        ) {
+          initGTM(w, d, s, l, i);
+        }
+      })(window, document, 'script', 'dataLayer', gtmID);
+
+      var oldHref = document.location.href;
+      window.onload = function () {
+        var bodyList = document.querySelector('body');
+
+        var observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            if (oldHref != document.location.href) {
+              oldHref = document.location.href;
+              // initGTM(window, document, 'script', 'dataLayer', gtmID);
+              console.log(99, window.location.href);
+              toggleIntercomChat();
+            }
+          });
+        });
+
+        var config = {
+          childList: true,
+          subtree: true,
+        };
+
+        observer.observe(bodyList, config);
+      };
+    </script>
   </head>
   <body>
     <app-root></app-root>

@@ -29,7 +29,7 @@ export class I18nService {
 
     // Embed languages to avoid extra HTTP requests
     _translateService.setTranslation('de-DE', deDE);
-    _translateService.setTranslation('en-US', enUS);
+    _translateService.setTranslation('en-EN', enUS);
     _translateService.setTranslation('es-ES', esES);
     _translateService.setTranslation('fr-FR', frFR);
     _translateService.setTranslation('it-IT', itIT);

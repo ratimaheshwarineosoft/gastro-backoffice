@@ -41,18 +41,6 @@ export class ShellService {
     public readonly _permissionService: PermissionService,
   ) {}
 
-  allowedAccess(item: NavMenuItem): boolean {
-    if (item.roles && item.roles.length) {
-      return item.roles.includes(this._permissionService.userRole);
-    }
-
-    if (item.permissions && item.permissions.length) {
-      return item.permissions.some((permission: PERMISSIONS) => this._permissionService.hasPermission(permission));
-    }
-
-    return true;
-  }
-
   toggleNavMode(): void {
     const mode = this.navModeSubject.getValue();
     this.navModeSubject.next(mode === NavMode.Free ? NavMode.Locked : NavMode.Free);
