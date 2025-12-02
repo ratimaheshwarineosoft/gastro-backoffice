@@ -409,7 +409,7 @@
       <ul class="flex flex-col gap-y-1">
         <!-- Link -->
         <li class="px-2 lg:px-5 pt-5 border-t border-gray-200">
-          <span class="block ps-2.5 font-medium text-xs uppercase text-gray-500 dark:text-neutral-500"> Quick Access </span>
+          <span class="block ps-2.5 font-medium text-xs uppercase text-gray-500 dark:text-neutral-500">{{ 'Common.quick_access' | translate }} </span>
           <a
             class="flex gap-x-3 py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700"
             [routerLink]="['/client', params.clientId, 'dashboard']"
@@ -429,14 +429,14 @@
               <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
               <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
-            Dashboard
+            {{ 'Common.dashboard' | translate }}
           </a>
         </li>
         <!-- End Link -->
 
         <!-- Link -->
         <li class="px-2 lg:px-5 pt-5 border-t border-gray-200">
-          <span class="block ps-2.5 font-medium text-xs uppercase text-gray-500 dark:text-neutral-500"> Einstellungen </span>
+          <span class="block ps-2.5 font-medium text-xs uppercase text-gray-500 dark:text-neutral-500"> {{ 'Common.settings' | translate }} </span>
           <a
             class="flex gap-x-3 py-2 px-3 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:focus:bg-neutral-700"
             [routerLink]="['/client', params.clientId, 'opening-hours']"
@@ -447,7 +447,7 @@
                 d="M528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112C434.9 112 528 205.1 528 320zM64 320C64 461.4 178.6 576 320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320zM296 184L296 320C296 328 300 335.5 306.7 340L402.7 404C413.7 411.4 428.6 408.4 436 397.3C443.4 386.2 440.4 371.4 429.3 364L344 307.2L344 184C344 170.7 333.3 160 320 160C306.7 160 296 170.7 296 184z"
               />
             </svg>
-            Opening Hours
+            {{ 'Common.opening_hours' | translate }}
           </a>
         </li>
         <!-- End Link -->
@@ -658,7 +658,7 @@
 
 <!-- ========== MAIN CONTENT ========== -->
 <main class="lg:hs-overlay-layout-open:ps-60 bg-gray-100 transition-all duration-300 lg:inset-0 pt-13 px-3 pb-3 dark:bg-neutral-900">
-  <div class="h-[calc(100dvh-62px)] lg:h-full overflow-hidden flex flex-col bg-white border border-gray-200 shadow-xs rounded-lg dark:bg-neutral-800 dark:border-neutral-700">
+  <div class="h-[calc(100dvh-62px)] lg:h-full overflow-hidden flex flex-col bg-white border border-gray-200 min-h-screen shadow-xs rounded-lg dark:bg-neutral-800 dark:border-neutral-700">
     <!-- Body -->
     <div class="flex-1 flex flex-col overflow-y-auto [&::-webkit-scrollbar]:w-0">
       <router-outlet></router-outlet>

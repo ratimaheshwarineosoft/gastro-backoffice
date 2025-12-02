@@ -1,5 +1,5 @@
 {
-  "APP_NAME": "Angular v18 Boiler Plate",
+  "APP_NAME": "Angular",
   "LANGUAGE": "Deutsch",
   "Hello World": "Hallo Welt",
   "Home": "Heim",
@@ -57,7 +57,22 @@
     "ToDate": "Datum bis",
     "dateValidationError": "Das 'Von'-Datum muss vor oder gleich dem 'Bis'-Datum liegen.",
     "CopyToClipboard": "In die Zwischenablage kopieren",
-    "fileDownload": "datei erfolgreich heruntergeladen."
+    "fileDownload": "datei erfolgreich heruntergeladen.",
+    "quick_access": "Schnellzugriff",
+    "dashboard": "Meine Startseite",
+    "settings": "Einstellungen",
+    "opening_hours": "Öffnungszeiten",
+    "special_opening_hours": "Besondere Öffnungszeiten",
+    "opening_hours_administration": "Öffnungszeiten - Administration",
+    "Add Recurrence Hours": "Wiederholungsstunden hinzufügen",
+    "New Entry": "Neuer Eintrag",
+    "Freitag, ": "Freitag, ",
+    "Samstag, ": "Samstag, ",
+    "Donnerstag, ": "Donnerstag, ",
+    "Dienstag, ": "Dienstag, ",
+    "Mittwoch, ": "Mittwoch, ",
+    "Sonntag, ": "Sonntag, ",
+    "Montag, ": "Montag, "
   },
   "SelectPage": {
     "ManageLocation": "Wählen Sie den Standort aus, den Sie verwalten möchten",

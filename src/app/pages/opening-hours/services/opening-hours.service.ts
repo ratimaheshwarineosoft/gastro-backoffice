@@ -28,8 +28,13 @@ export class OpeningHoursService {
   getOpeningHours(clientId: number, { fromDate, toDate }: any): Observable<DayOpeningHours[]> {
     return this.http.get<DayOpeningHours[]>(`${environment.serverUrl}v2/client/opening-hours/all/${clientId}?fromDate=${encodeURIComponent(fromDate)}&toDate=${encodeURIComponent(toDate)}`);
   }
-
+  getSpecialOpeningHours(clientId: number): Observable<DayOpeningHours[]> {
+    return this.http.get<DayOpeningHours[]>(`${environment.serverUrl}v2/client/opening-hours/special/${clientId}`);
+  }
   saveOpeningHours(clientId: number, payload: any): Observable<any> {
-    return this.http.post(`http://localhost:2017/v2/client/opening-hours/save-special/${clientId}`, payload);
+    return this.http.post(`${environment.serverUrl}v2/client/opening-hours/save-special/${clientId}`, payload);
+  }
+  deleteOpeningHours(clientId: number, payload: any): Observable<any> {
+    return this.http.post(`${environment.serverUrl}v2/client/special-opening-hours/delete/${clientId}`, payload);
   }
 }

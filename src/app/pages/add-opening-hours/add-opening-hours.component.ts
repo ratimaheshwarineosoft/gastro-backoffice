@@ -33,13 +33,13 @@ export class AddOpeningHoursComponent {
   isModalOpen = false;
 
   daysOfWeekOptions: DayOption[] = [
-    { label: 'Monday', value: 0 },
-    { label: 'Tuesday', value: 1 },
-    { label: 'Wednesday', value: 2 },
-    { label: 'Thursday', value: 3 },
-    { label: 'Friday', value: 4 },
-    { label: 'Saturday', value: 5 },
-    { label: 'Sunday', value: 6 },
+    { label: 'Monday', value: 1 },
+    { label: 'Tuesday', value: 2 },
+    { label: 'Wednesday', value: 3 },
+    { label: 'Thursday', value: 4 },
+    { label: 'Friday', value: 5 },
+    { label: 'Saturday', value: 6 },
+    { label: 'Sunday', value: 0 },
   ];
 
   datepickerConfig: any = {

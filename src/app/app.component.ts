@@ -41,9 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
-          setTimeout(() => {
-            (window as any).HSStaticMethods?.autoInit();
-          }, 100);
+          setTimeout(() => window.HSStaticMethods.autoInit(), 100);
         }
       });
     }
