@@ -1,6 +1,6 @@
 {
-  "name": "angular-boilerplate",
-  "short_name": "angular-boilerplate",
+  "name": "backoffice",
+  "short_name": "backoffice",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
